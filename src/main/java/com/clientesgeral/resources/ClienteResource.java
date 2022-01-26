@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,22 +34,25 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
+	
+	private Logger LOG = LoggerFactory.getLogger(ClienteResource.class);
 
 	@Autowired
 	private ClienteService service;
 
 	@ApiOperation("Buscar cliente por id.")
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
+	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
 		Cliente obj = service.findOne(id);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 	
 	@ApiOperation("Buscar cliente por email.")
 	@GetMapping("/email")
-	public ResponseEntity<Cliente> findByEmail(@RequestParam(required = true) String email) {
+	public ResponseEntity<ClienteDTO> findByEmail(@RequestParam(required = true) String email) {
 		Cliente obj = service.findByEmail(email);
-		return ResponseEntity.ok().body(obj);
+		LOG.info("Consegui bater");
+		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 	
 	@ApiOperation("Salvar cliente.")
@@ -75,6 +80,7 @@ public class ClienteResource {
 	public ResponseEntity<List<ClienteDTO>> findAll() {
 		List<Cliente> list = service.findAll();
 		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+		LOG.info("Consegui bater");
 		return ResponseEntity.ok().body(listDto);
 	}
 	
@@ -87,6 +93,7 @@ public class ClienteResource {
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Cliente> list = service.findAllPerPage(page, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
+		LOG.info("Consegui bater");
 		return ResponseEntity.ok().body(listDto);
 	}
 }
