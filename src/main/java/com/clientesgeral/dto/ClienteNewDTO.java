@@ -2,7 +2,6 @@ package com.clientesgeral.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -10,7 +9,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.clientesgeral.domain.Cliente;
 import com.clientesgeral.services.validation.ClienteInsert;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -40,28 +38,6 @@ public class ClienteNewDTO implements Serializable {
     @DateTimeFormat(pattern = "dd-MM-yyyy", iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
 	
-	private Integer idade;
-
-	public ClienteNewDTO() {
-		super();
-	}
-
-	public ClienteNewDTO(Cliente obj) {
-		id = obj.getId();
-		nome = obj.getNome();
-		email = obj.getEmail();
-		cpfOuCnpj = obj.getCpfOuCnpj();
-		tipo = obj.getTipo();
-		dataNascimento = obj.getDataNascimento();
-		idade = getIdadeCalculada(dataNascimento);
-	}
-	
-	private Integer getIdadeCalculada(LocalDate dataNascimento) {
-		final LocalDate dataAtual = LocalDate.now();
-	    final Period periodo = Period.between(dataNascimento, dataAtual);
-		return periodo.getYears();
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -110,12 +86,4 @@ public class ClienteNewDTO implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Integer getIdade() {
-		return idade;
-	}
-
-	public void setIdade(Integer idade) {
-		this.idade = idade;
-	}
-	
 }

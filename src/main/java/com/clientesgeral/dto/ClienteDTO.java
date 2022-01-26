@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
