@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.clientesgeral.domain.Cliente;
 import com.clientesgeral.dto.ClienteDTO;
+import com.clientesgeral.dto.ClienteNewDTO;
 import com.clientesgeral.services.ClienteService;
 
 import io.swagger.annotations.Api;
@@ -51,7 +52,7 @@ public class ClienteResource {
 	
 	@ApiOperation("Salvar cliente.")
 	@PostMapping
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO objDto) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = new Cliente();
         BeanUtils.copyProperties(objDto, obj);
 		obj = service.insert(obj);

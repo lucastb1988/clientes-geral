@@ -15,33 +15,38 @@ import com.clientesgeral.services.validation.ClienteInsert;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @ClienteInsert
-public class ClienteDTO implements Serializable {
+public class ClienteNewDTO implements Serializable {
 
 	private static final long serialVersionUID = -9031487931907790020L;
 
 	private Integer id;
 
+	@NotNull(message = "Preenchimento Obrigatório")
 	@Length(min = 5, max = 50, message = "O tamanho deve ser entre 5 e 50 caracteres")
 	private String nome;
 
+	@NotNull(message = "Preenchimento Obrigatório")
 	@Email(message = "E-mail inválido")
 	private String email;
 
+	@NotNull(message = "Preenchimento Obrigatório")
 	private String cpfOuCnpj;
 
+	@NotNull(message = "Preenchimento Obrigatório")
 	private Integer tipo;
 
+	@NotNull(message = "Preenchimento Obrigatório")
 	@JsonFormat(pattern = "dd-MM-yyyy", locale = "pt_BR")
     @DateTimeFormat(pattern = "dd-MM-yyyy", iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
 	
 	private Integer idade;
 
-	public ClienteDTO() {
+	public ClienteNewDTO() {
 		super();
 	}
 
-	public ClienteDTO(Cliente obj) {
+	public ClienteNewDTO(Cliente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();
