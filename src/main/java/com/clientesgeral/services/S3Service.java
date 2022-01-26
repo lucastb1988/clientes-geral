@@ -1,17 +1,15 @@
 package com.clientesgeral.services;
 
-import java.io.InputStream;
-import java.net.URI;
+import java.io.File;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Service
 public class S3Service {
@@ -25,37 +23,14 @@ public class S3Service {
 	private String bucketName;
 
 	// método responsável para fazer um upload no AWS S3
-	public URI uploadFile(MultipartFile multipartFile) {
+	public void uploadFile(String localFile) {
 		try {
-			String fileName = multipartFile.getOriginalFilename();
-			InputStream is = multipartFile.getInputStream();
-			String contentType = multipartFile.getContentType();
-
-			return uploadFile(is, fileName, contentType);
-
-		} catch (Exception e) {
-			LOG.error("Erro");
-		}
-		
-		return null;
-	}
-
-	private URI uploadFile(InputStream is, String fileName, String contentType) {
-
-		try {
-			ObjectMetadata meta = new ObjectMetadata();
-			meta.setContentType(contentType);
-
+			File file = new File(localFile);
 			LOG.info("Iniciando upload");
-			s3client.putObject(bucketName, fileName, is, meta);
+			s3client.putObject(new PutObjectRequest(bucketName, "teste.jpeg", file));
 			LOG.info("Upload finalizado");
-
-			return s3client.getUrl(bucketName, fileName).toURI();
-			
 		} catch (Exception e) {
 			LOG.error("Erro");
 		}
-		
-		return null;
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 import com.clientesgeral.services.DBService;
-import com.clientesgeral.services.S3Service2;
+import com.clientesgeral.services.S3Service;
 
 @SpringBootApplication
 @EnableCaching
@@ -20,7 +20,7 @@ public class ClientesGeralApplication implements CommandLineRunner {
 	private DBService dbService;
 	
 	@Autowired
-	private S3Service2 s3Service;
+	private S3Service s3Service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClientesGeralApplication.class, args);
