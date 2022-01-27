@@ -69,7 +69,7 @@ public class ClienteResource {
 	}
 	
 	@ApiOperation("Buscar os clientes inseridos no banco de forma paginada.")
-	@GetMapping("/page")
+	@GetMapping
 	public ResponseEntity<Page<ClienteDTO>> findAllPerPage(
 			@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
