@@ -19,10 +19,6 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 	@Override
 	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> errors = new ArrayList<>();
-		
-		if (objDto.getTipo() == null) {
-			return true;
-		}
 
 		if (!TipoClienteEnum.PESSOA_FISICA.getCodigo().equals(objDto.getTipo())
 				&& !TipoClienteEnum.PESSOA_JURIDICA.getCodigo().equals(objDto.getTipo())) {

@@ -10,10 +10,10 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.clientesgeral.domain.Cliente;
-import com.clientesgeral.services.validation.ClienteInsert;
+import com.clientesgeral.services.validation.ClienteUpdate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@ClienteInsert
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
 	private static final long serialVersionUID = -9031487931907790020L;
@@ -51,6 +51,9 @@ public class ClienteDTO implements Serializable {
 	}
 	
 	private Integer getIdadeCalculada(LocalDate dataNascimento) {
+		if (dataNascimento == null) {
+			return 0;
+		}
 		final LocalDate dataAtual = LocalDate.now();
 	    final Period periodo = Period.between(dataNascimento, dataAtual);
 		return periodo.getYears();

@@ -4,8 +4,6 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,8 +31,6 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
 	
-	private Logger LOG = LoggerFactory.getLogger(ClienteResource.class);
-
 	@Autowired
 	private ClienteService service;
 
@@ -49,7 +45,6 @@ public class ClienteResource {
 	@GetMapping("/email")
 	public ResponseEntity<ClienteDTO> findByEmail(@RequestParam(required = true) String email) {
 		Cliente obj = service.findByEmail(email);
-		LOG.info("Consegui bater");
 		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 	
@@ -82,7 +77,6 @@ public class ClienteResource {
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Cliente> list = service.findAllPerPage(page, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
-		LOG.info("Consegui bater");
 		return ResponseEntity.ok().body(listDto);
 	}
 }
