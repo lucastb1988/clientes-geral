@@ -1,8 +1,6 @@
 package com.clientesgeral.resources;
 
 import java.net.URI;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -73,15 +71,6 @@ public class ClienteResource {
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
-	}
-	
-	@ApiOperation("Buscar todos os clientes inseridos no banco.")
-	@GetMapping
-	public ResponseEntity<List<ClienteDTO>> findAll() {
-		List<Cliente> list = service.findAll();
-		List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
-		LOG.info("Consegui bater");
-		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@ApiOperation("Buscar os clientes inseridos no banco de forma paginada.")

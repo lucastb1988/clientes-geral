@@ -13,13 +13,11 @@ public class CacheConfigurationProperties {
 
 	public static final String BUSCAR_POR_ID = "clientesgeral.buscarporid";
 	public static final String BUSCAR_POR_EMAIL = "clientesgeral.buscarporemail";
-	public static final String BUSCAR_TODOS = "clientesgeral.buscartodos";
 	public static final String BUSCAR_PAGINADO = "clientesgeral.buscarpaginado";
 
 	private Long padrao;
 	private Long buscarPorId;
 	private Long buscarPorEmail;
-	private Long buscarTodos;
 	private Long buscarPaginado;
 
 	@Bean
@@ -27,7 +25,6 @@ public class CacheConfigurationProperties {
 		final Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
 		cacheConfigurations.put(BUSCAR_POR_ID, getConfig(this.buscarPorId));
 		cacheConfigurations.put(BUSCAR_POR_EMAIL, getConfig(this.buscarPorEmail));
-		cacheConfigurations.put(BUSCAR_TODOS, getConfig(this.buscarTodos));
 		cacheConfigurations.put(BUSCAR_PAGINADO, getConfig(this.buscarPaginado));
 
 		return cacheConfigurations;
@@ -62,14 +59,6 @@ public class CacheConfigurationProperties {
 		this.buscarPorEmail = buscarPorEmail;
 	}
 
-	public Long getBuscarTodos() {
-		return buscarTodos;
-	}
-
-	public void setBuscarTodos(Long buscarTodos) {
-		this.buscarTodos = buscarTodos;
-	}
-
 	public Long getBuscarPaginado() {
 		return buscarPaginado;
 	}
@@ -81,7 +70,7 @@ public class CacheConfigurationProperties {
 	@Override
 	public String toString() {
 		return "CacheConfigurationProperties [padrao=" + padrao + ", buscarPorId=" + buscarPorId + ", buscarPorEmail="
-				+ buscarPorEmail + ", buscarTodos=" + buscarTodos + ", buscarPaginado=" + buscarPaginado + "]";
+				+ buscarPorEmail + ", buscarPaginado=" + buscarPaginado + "]";
 	}
 
 }

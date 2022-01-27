@@ -2,6 +2,8 @@ FROM openjdk
 
 VOLUME /tmp
 
-COPY target/clientes-geral-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar", "/app.jar" ]
+COPY target/clientes-geral-0.0.1-SNAPSHOT.jar clientes-geral.jar
+
+ENTRYPOINT [ "java", "-jar", "/clientes-geral.jar" ]
