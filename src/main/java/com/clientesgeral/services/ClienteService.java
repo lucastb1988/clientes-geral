@@ -21,14 +21,14 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	//@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_ID)
+	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_ID)
 	public Cliente findOne(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
-	//@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_EMAIL)
+	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_EMAIL)
 	public Cliente findByEmail(String email) {
 		Cliente obj = clienteRepository.findByEmail(email);
 		if (obj == null) {
@@ -60,7 +60,7 @@ public class ClienteService {
 		newObj.setDataNascimento(obj.getDataNascimento());
 	}
 
-	//@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_PAGINADO)
+	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_PAGINADO)
 	public Page<Cliente> findAllPerPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return clienteRepository.findAll(pageRequest);
