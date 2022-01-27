@@ -7,17 +7,17 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import com.clientesgeral.domain.enums.TipoClienteEnum;
-import com.clientesgeral.dto.ClienteDTO;
+import com.clientesgeral.dto.ClienteNewDTO;
 import com.clientesgeral.resources.exception.FieldMessage;
 import com.clientesgeral.services.validation.utils.BR;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteDTO> {
+public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
 
 	@Override
 	public void initialize(ClienteInsert c) {}
 	
 	@Override
-	public boolean isValid(ClienteDTO objDto, ConstraintValidatorContext context) {
+	public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
 		List<FieldMessage> errors = new ArrayList<>();
 		
 		if (objDto.getTipo() == null) {

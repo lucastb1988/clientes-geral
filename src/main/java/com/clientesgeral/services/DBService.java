@@ -40,7 +40,7 @@ public class DBService {
 		Cliente cli7 = new Cliente(null, "Vanderlei Tartarini", "vanderleibanin@gmail.com", "45567849280",
 				TipoClienteEnum.PESSOA_FISICA, LocalDate.of(1985, 5, 14));
 
-		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli4, cli5, cli6, cli7));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5, cli6, cli7));
 	}
 
 }
