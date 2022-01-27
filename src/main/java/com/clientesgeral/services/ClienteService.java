@@ -3,7 +3,6 @@ package com.clientesgeral.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.clientesgeral.domain.Cliente;
 import com.clientesgeral.exception.ObjectNotFoundException;
-import com.clientesgeral.infrastructure.cache.CacheConfigurationProperties;
 import com.clientesgeral.repositories.ClienteRepository;
 
 @Service
@@ -21,14 +19,14 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_ID)
+	// @Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_ID)
 	public Cliente findOne(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
-	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_EMAIL)
+	// @Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_EMAIL)
 	public Cliente findByEmail(String email) {
 		Cliente obj = clienteRepository.findByEmail(email);
 		if (obj == null) {
@@ -60,7 +58,7 @@ public class ClienteService {
 		newObj.setDataNascimento(obj.getDataNascimento());
 	}
 
-	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_PAGINADO)
+	// @Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_PAGINADO)
 	public Page<Cliente> findAllPerPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return clienteRepository.findAll(pageRequest);
