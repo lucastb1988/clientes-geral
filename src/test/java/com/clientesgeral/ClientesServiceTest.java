@@ -63,7 +63,7 @@ public class ClientesServiceTest {
     public void deveBuscarClientePorEmail() {
     	Cliente cliente = getClienteMock();
     	when(clienteRepository.findByEmail(anyString())).thenReturn(cliente);
-        cliente = clienteService.findOne(1);
+        cliente = clienteService.findByEmail("lucas@gmail.com");
         assertNotNull(cliente);
     }
     
