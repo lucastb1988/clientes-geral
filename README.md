@@ -31,7 +31,6 @@ Esse comando irá criar a imagem (dentro de um container) da aplicação e a ima
 ### Rodando o sistema com docker (não utilizando docker-compose, realizando os comandos manualmente)
 ---------------------------------------------
 Em um sistema operacional Windows/Linux/Mac se certificar de ter Docker instalado.
-run Maven Build -> clean compile install (para certificar que o Jar da aplicação está devidamente configurado).
 docker build -t ${nome-aplicacao} .
 docker run -p 8080:8080 ${nome-aplicacao}
 
