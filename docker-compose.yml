@@ -2,13 +2,10 @@ version: "3.3"
 services:
   clientes-geral:
     container_name: "clientes-geral"
-    image: clientes-geral:latest
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: 23320488/clientes-geral:latest
     restart: always
     ports:
-        - 8081:8081
+        - 80:8080
   redis: 
     container_name: "redis"
     image: redis:alpine

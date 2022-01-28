@@ -1,9 +1,10 @@
-FROM openjdk
+FROM maven:3.6.3-jdk-11-slim AS build
+RUN mkdir /opt/clientes-geral
+WORKDIR /opt/clientes-geral
+COPY . /opt/clientes-geral
+RUN mvn clean package
 
-VOLUME tmp
-
-EXPOSE 8081
-
-COPY target/clientes-geral-0.0.1-SNAPSHOT.jar clientes-geral.jar
-
-ENTRYPOINT [ "java", "-jar", "/clientes-geral.jar" ]
+FROM openjdk:11-jre-slim
+COPY --from=build /opt/clientes-geral/target/clientes-geral*.jar clientes-geral.jar
+EXPOSE 8080
+ENTRYPOINT java -jar clientes-geral.jar
