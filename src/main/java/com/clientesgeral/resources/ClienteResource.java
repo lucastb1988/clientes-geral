@@ -52,6 +52,7 @@ public class ClienteResource {
 
 	@ApiOperation("Salvar cliente.")
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = new Cliente();
 		BeanUtils.copyProperties(objDto, obj);
