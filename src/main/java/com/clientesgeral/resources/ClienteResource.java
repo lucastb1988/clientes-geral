@@ -28,11 +28,11 @@ import com.clientesgeral.services.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(tags = {"API dedicada a atender as necessidades dos processos de cliente."})
+@Api(tags = { "API dedicada a atender as necessidades dos processos de cliente." })
 @RestController
 @RequestMapping(value = "/clientes")
 public class ClienteResource {
-	
+
 	@Autowired
 	private ClienteService service;
 
@@ -42,39 +42,38 @@ public class ClienteResource {
 	public ClienteDTO findById(@PathVariable Integer id) {
 		return new ClienteDTO(service.findOne(id));
 	}
-	
+
 	@ApiOperation("Buscar cliente por email.")
 	@GetMapping("/email")
 	@ResponseStatus(HttpStatus.OK)
 	public ClienteDTO findByEmail(@RequestParam(required = true) String email) {
 		return new ClienteDTO(service.findByEmail(email));
 	}
-	
+
 	@ApiOperation("Salvar cliente.")
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = new Cliente();
-        BeanUtils.copyProperties(objDto, obj);
+		BeanUtils.copyProperties(objDto, obj);
 		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@ApiOperation("Atualizar cliente.")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
 		Cliente obj = new Cliente();
-        BeanUtils.copyProperties(objDto, obj);
+		BeanUtils.copyProperties(objDto, obj);
 		obj.setId(id);
 		obj = service.update(obj);
 	}
-	
+
 	@ApiOperation("Buscar os clientes inseridos no banco de forma paginada.")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Page<ClienteDTO> findAllPerPage(
-			@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public Page<ClienteDTO> findAllPerPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {

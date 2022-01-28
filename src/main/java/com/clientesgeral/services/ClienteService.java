@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.clientesgeral.domain.Cliente;
 import com.clientesgeral.exception.ObjectNotFoundException;
-import com.clientesgeral.infrastructure.cache.CacheConfigurationProperties;
 import com.clientesgeral.repositories.ClienteRepository;
 
 @Service
@@ -21,14 +20,14 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
-	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_ID)
+	@Cacheable("id")
 	public Cliente findOne(Integer id) {
 		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
-	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_POR_EMAIL)
+	@Cacheable("email")
 	public Cliente findByEmail(String email) {
 		Cliente obj = clienteRepository.findByEmail(email);
 		if (obj == null) {
@@ -70,7 +69,7 @@ public class ClienteService {
 		}
 	}
 
-	@Cacheable(cacheNames = CacheConfigurationProperties.BUSCAR_PAGINADO)
+	@Cacheable("page")
 	public Page<Cliente> findAllPerPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return clienteRepository.findAll(pageRequest);

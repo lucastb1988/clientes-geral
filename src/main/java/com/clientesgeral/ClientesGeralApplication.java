@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 
 import com.clientesgeral.services.DBService;
 
 @SpringBootApplication
-@EnableCaching
 public class ClientesGeralApplication implements CommandLineRunner {
 	
 	@Autowired

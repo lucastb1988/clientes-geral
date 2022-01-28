@@ -1,13 +1,15 @@
 version: "3.3"
 services:
-  clientes-geral:
-    container_name: "clientes-geral"
-    image: 23320488/clientes-geral:latest
-    restart: always
-    ports:
-        - 80:8080
-  redis: 
-    container_name: "redis"
+  redis-server:
+    container_name: redis
     image: redis:alpine
     ports:
       - 6379:6379
+  clientes-geral:
+    container_name: clientes-geral
+    image: 23320488/clientes-geral:latest
+    restart: always
+    links:
+      - redis-server
+    ports:
+        - 80:8080
