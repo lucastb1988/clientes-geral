@@ -26,12 +26,13 @@ import com.clientesgeral.domain.enums.TipoClienteEnum;
 import com.clientesgeral.exception.ObjectNotFoundException;
 import com.clientesgeral.repositories.ClienteRepository;
 import com.clientesgeral.services.ClienteService;
+import com.clientesgeral.services.impl.ClienteServiceImpl;
 import com.google.common.collect.Lists;
 
 public class ClientesServiceTest {
 
     @InjectMocks
-    protected ClienteService clienteService = new ClienteService();
+    protected ClienteService clienteService = new ClienteServiceImpl();
 
     @Mock
     protected ClienteRepository clienteRepository;
@@ -55,30 +56,30 @@ public class ClientesServiceTest {
     public void deveBuscarClientePorId() {
     	Cliente cliente = getClienteMock();
     	when(clienteRepository.findById(anyInt())).thenReturn(Optional.of(cliente));
-        cliente = clienteService.findOne(1);
+        cliente = clienteService.buscarPorId(1);
         assertNotNull(cliente);
     }
     
     @Test
     public void deveBuscarClientePorEmail() {
     	Cliente cliente = getClienteMock();
-    	when(clienteRepository.findByEmail(anyString())).thenReturn(cliente);
-        cliente = clienteService.findByEmail("lucas@gmail.com");
+    	when(clienteRepository.buscarPorEmail(anyString())).thenReturn(cliente);
+        cliente = clienteService.buscarPorEmail("lucas@gmail.com");
         assertNotNull(cliente);
     }
     
     @Test
     public void naoDeveBuscarClientePorEmailPoisExcecaoFoiLancada() {
     	excecaoEsperada.expect(ObjectNotFoundException.class);
-        when(clienteRepository.findByEmail(anyString())).thenReturn(null);
-        clienteService.findByEmail("lucastttt@gmail.com");
+        when(clienteRepository.buscarPorEmail(anyString())).thenReturn(null);
+        clienteService.buscarPorEmail("lucastttt@gmail.com");
     }
 
     @Test
     public void deveListarClientesPaginado() {
     	List<Cliente> lista = Lists.newArrayList(getClienteMock(), getClienteMock2());
     	when(clienteRepository.findAll(any(PageRequest.class))).thenReturn(new PageImpl<>(lista));
-    	Page<Cliente> clientes = clienteService.findAllPerPage(1, 5, "id", "ASC");
+    	Page<Cliente> clientes = clienteService.buscarPaginado(1, 5, "id", "ASC");
     	assertEquals(2, clientes.getSize());
     }
 

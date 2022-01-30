@@ -39,24 +39,24 @@ public class ClienteResource {
 	@ApiOperation("Buscar cliente por id.")
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ClienteDTO findById(@PathVariable Integer id) {
-		return new ClienteDTO(service.findOne(id));
+	public ClienteDTO buscarPorId(@PathVariable Integer id) {
+		return new ClienteDTO(service.buscarPorId(id));
 	}
 
 	@ApiOperation("Buscar cliente por email.")
 	@GetMapping("/email")
 	@ResponseStatus(HttpStatus.OK)
-	public ClienteDTO findByEmail(@RequestParam(required = true) String email) {
-		return new ClienteDTO(service.findByEmail(email));
+	public ClienteDTO buscarPorEmail(@RequestParam(required = true) String email) {
+		return new ClienteDTO(service.buscarPorEmail(email));
 	}
 
 	@ApiOperation("Salvar cliente.")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDto) {
+	public ResponseEntity<Void> salvar(@Valid @RequestBody ClienteNewDTO objDto) {
 		Cliente obj = new Cliente();
 		BeanUtils.copyProperties(objDto, obj);
-		obj = service.insert(obj);
+		obj = service.salvar(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
@@ -64,21 +64,21 @@ public class ClienteResource {
 	@ApiOperation("Atualizar cliente.")
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
+	public void atualizar(@Valid @RequestBody ClienteDTO objDto, @PathVariable Integer id) {
 		Cliente obj = new Cliente();
 		BeanUtils.copyProperties(objDto, obj);
 		obj.setId(id);
-		obj = service.update(obj);
+		obj = service.atualizar(obj);
 	}
 
 	@ApiOperation("Buscar os clientes inseridos no banco de forma paginada.")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Page<ClienteDTO> findAllPerPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
+	public Page<ClienteDTO> buscarPaginado(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-		Page<Cliente> list = service.findAllPerPage(page, linesPerPage, orderBy, direction);
+		Page<Cliente> list = service.buscarPaginado(page, linesPerPage, orderBy, direction);
 		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
 		return listDto;
 	}

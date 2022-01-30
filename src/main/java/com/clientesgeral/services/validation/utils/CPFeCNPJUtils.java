@@ -1,7 +1,7 @@
 package com.clientesgeral.services.validation.utils;
 
 // fonte: https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30
-public class BR {
+public class CPFeCNPJUtils {
 	
 	// CPF
     private static final int[] weightCPF = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};

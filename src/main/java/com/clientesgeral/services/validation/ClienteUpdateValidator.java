@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 import com.clientesgeral.domain.enums.TipoClienteEnum;
 import com.clientesgeral.dto.ClienteDTO;
 import com.clientesgeral.resources.exception.FieldMessage;
-import com.clientesgeral.services.validation.utils.BR;
+import com.clientesgeral.services.validation.utils.CPFeCNPJUtils;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 
@@ -33,12 +33,12 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 		
 		if (objDto.getTipo() != null && objDto.getCpfOuCnpj() != null) {
 			if (TipoClienteEnum.PESSOA_FISICA.getCodigo().equals(objDto.getTipo())
-					&& !BR.isValidCpf(objDto.getCpfOuCnpj())) {
+					&& !CPFeCNPJUtils.isValidCpf(objDto.getCpfOuCnpj())) {
 				errors.add(new FieldMessage("cpfOuCnpj", "CPF inválido."));
 			}
 			
 			if (TipoClienteEnum.PESSOA_JURIDICA.getCodigo().equals(objDto.getTipo())
-					&& !BR.isValidCnpj(objDto.getCpfOuCnpj())) {
+					&& !CPFeCNPJUtils.isValidCnpj(objDto.getCpfOuCnpj())) {
 				errors.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido."));
 			}
 		}

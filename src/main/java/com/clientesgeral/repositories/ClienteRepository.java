@@ -10,6 +10,6 @@ import com.clientesgeral.domain.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
 	@Transactional(readOnly = true)
-	Cliente findByEmail(String email);
+	Cliente buscarPorEmail(String email);
 
 }
