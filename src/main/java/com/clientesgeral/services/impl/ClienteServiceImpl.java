@@ -51,33 +51,33 @@ public class ClienteServiceImpl implements ClienteService {
 	@Transactional
 	@Override
 	public Cliente atualizar(Cliente obj) {
-		Cliente newObj = buscarPorId(obj.getId());
-		atualizarData(newObj, obj);
-		return clienteRepository.save(newObj);
+		Cliente novoObj = buscarPorId(obj.getId());
+		atualizarData(novoObj, obj);
+		return clienteRepository.save(novoObj);
 	}
 
-	private void atualizarData(Cliente newObj, Cliente obj) {
+	private void atualizarData(Cliente novoObj, Cliente obj) {
 		if (obj.getNome() != null) {
-			newObj.setNome(obj.getNome());
+			novoObj.setNome(obj.getNome());
 		}
 		if (obj.getEmail() != null) {
-			newObj.setEmail(obj.getEmail());
+			novoObj.setEmail(obj.getEmail());
 		}
 		if (obj.getCpfOuCnpj() != null) {
-			newObj.setCpfOuCnpj(obj.getCpfOuCnpj());
+			novoObj.setCpfOuCnpj(obj.getCpfOuCnpj());
 		}
 		if (obj.getTipo() != null) {
-			newObj.setTipo(obj.getTipo());
+			novoObj.setTipo(obj.getTipo());
 		}
 		if (obj.getDataNascimento() != null) {
-			newObj.setDataNascimento(obj.getDataNascimento());
+			novoObj.setDataNascimento(obj.getDataNascimento());
 		}
 	}
 
 	@Cacheable("page")
 	@Override
-	public Page<Cliente> buscarPaginado(Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+	public Page<Cliente> buscarPaginado(Integer pagina, Integer qtdePorPagina, String ordenacaoPor, String direcao) {
+		PageRequest pageRequest = PageRequest.of(pagina, qtdePorPagina, Direction.valueOf(direcao), ordenacaoPor);
 		return clienteRepository.findAll(pageRequest);
 	}
 

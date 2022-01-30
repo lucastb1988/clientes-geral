@@ -74,12 +74,12 @@ public class ClienteResource {
 	@ApiOperation("Buscar os clientes inseridos no banco de forma paginada.")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public Page<ClienteDTO> buscarPaginado(@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "10") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
-		Page<Cliente> list = service.buscarPaginado(page, linesPerPage, orderBy, direction);
-		Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
-		return listDto;
+	public Page<ClienteDTO> buscarPaginado(@RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
+			@RequestParam(value = "qtdePorPagina", defaultValue = "10") Integer qtdePorPagina,
+			@RequestParam(value = "ordenacaoPor", defaultValue = "nome") String ordenacaoPor,
+			@RequestParam(value = "direcao", defaultValue = "ASC") String direcao) {
+		Page<Cliente> lista = service.buscarPaginado(pagina, qtdePorPagina, ordenacaoPor, direcao);
+		Page<ClienteDTO> listaDto = lista.map(obj -> new ClienteDTO(obj));
+		return listaDto;
 	}
 }

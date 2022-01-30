@@ -4,6 +4,6 @@ import java.text.ParseException;
 
 public interface DBService {
 
-	void instantiateTestDataBase() throws ParseException;
+	void instanciarDataBase() throws ParseException;
 	
 }

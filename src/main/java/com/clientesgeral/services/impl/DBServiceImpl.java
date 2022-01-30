@@ -19,7 +19,7 @@ public class DBServiceImpl implements DBService {
 	private ClienteRepository clienteRepository;
 
 	@Override
-	public void instantiateTestDataBase() throws ParseException {
+	public void instanciarDataBase() throws ParseException {
 
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria.silva@gmail.com", "36378912377",
 				TipoClienteEnum.PESSOA_FISICA, LocalDate.of(1955, 1, 10));

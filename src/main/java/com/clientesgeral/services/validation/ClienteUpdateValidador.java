@@ -11,7 +11,7 @@ import com.clientesgeral.dto.ClienteDTO;
 import com.clientesgeral.resources.exception.FieldMessage;
 import com.clientesgeral.services.validation.utils.CPFeCNPJUtils;
 
-public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
+public class ClienteUpdateValidador implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 
 	@Override
 	public void initialize(ClienteUpdate c) {}

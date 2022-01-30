@@ -19,7 +19,7 @@ public class ClientesGeralApplication implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		dbService.instantiateTestDataBase();
+		dbService.instanciarDataBase();
 	}
 
 }
